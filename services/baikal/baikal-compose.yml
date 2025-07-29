@@ -1,0 +1,12 @@
+version: "2"
+services:
+  baikal:
+    environment:
+     - SERVICE_IP
+    image: docker.io/ckulka/baikal:nginx
+    restart: always
+    ports:
+      - "$SERVICE_IP:8081:80"
+    volumes:
+      - ./baikal/config:/var/www/baikal/config
+      - ./baikal/Specific:/var/www/baikal/Specific
