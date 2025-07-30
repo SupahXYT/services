@@ -1,8 +1,0 @@
-version: "3.9"
-services:
-  test-env:
-    image: alpine
-    command: [ "sh", "-c", "echo The value of TESTING is: $TESTING && sleep 10" ]
-    environment:
-      - TESTING
-
