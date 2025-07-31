@@ -1,25 +1,41 @@
-# Services 
+# Nomadic Services
 
-This is a project aimed towards running services on unreliable infrastructure. 
+Personal services that follow you anywhere - cheap VPS, home server, laptop, or phone.
 
-## Why? 
+## How it works
 
-Imagine having multiple unreliable servers, all on standby, with only one actually running the services you need at a time.
-The idea is that the standby servers all periodically pull data from the running server, without actually running the services themselves. 
-They do this so that when the running server shuts down, they have a copy ready to continue like nothing happened.
-When the running server shuts down, a standby server takes over. 
-At the moment, this is done by manually updating .env to change the running server to whatever server you choose.
-Or, you can use DDNS to update the IP of the running server while keeping the hostname the same.
+- **One active server** runs services (usually a cheap VPS)
+- **Standby devices** sync data via rsync + cron
+- **Manual failover** by switching which device is "active" in Tailscale
 
-## Configuration
+## Setup
 
-
-
-## Todo 
-
-- [ ] 
-- [ ] Specify different volume in .env 
-
-
-
+**Active server:**
+```bash
+git clone git@github.com:SupahXYT/services.git
+# Setup Tailscale, rename to "active"
+rsync initial-data-from-standby
+./run.sh
 ```
+
+**Standby device:**
+```bash
+git clone git@github.com:SupahXYT/services.git
+# Setup Tailscale
+# Add cron job to sync from "active"
+```
+
+## Failover
+
+Promote standby to active:
+```bash
+./toggle.sh
+# Rename to "active" in Tailscale admin
+```
+
+## Why
+
+- Use $10/year VPS with personal devices as failbacks
+- Services stay available when moving/traveling
+- Privacy without vendor lock-in
+- Digital minimalism - carry only what you need
