@@ -11,31 +11,29 @@ Personal services that follow you anywhere - cheap VPS, home server, laptop, or 
 ## Setup
 
 **Active server:**
-```bash
-git clone git@github.com:SupahXYT/services.git
-# Setup Tailscale, rename to "active"
-rsync initial-data-from-standby
-./run.sh
-```
+
+- clone the repo
+- copy authorized_keys to ~/.ssh/ (or /root/.ssh/ if running as root)
+- setup secure ssh
+- download rsync
+- install tailscale + join network
+- set active name in tailscale
+- install podman + podman-compose
+- create .env file with your config
+- do initial rsync from a standby (or start fresh)
+- run services with ./run.sh
 
 **Standby device:**
-```bash
-git clone git@github.com:SupahXYT/services.git
-# Setup Tailscale
-# Add cron job to sync from "active"
-```
 
-## Failover
-
-Promote standby to active:
-```bash
-./toggle.sh
-# Rename to "active" in Tailscale admin
-```
+- clone the repo
+- add id_rsa.pub to authorized_keys (in /root/.ssh/ if syncing as root)
+- download rsync
+- install tailscale + join network
+- install podman + podman-compose (for when it becomes active)
+- create .env file
+- setup cron job for syncing from active server
 
 ## Why
 
 - Use $10/year VPS with personal devices as failbacks
 - Services stay available when moving/traveling
-- Privacy without vendor lock-in
-- Digital minimalism - carry only what you need
