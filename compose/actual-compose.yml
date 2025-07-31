@@ -1,7 +1,6 @@
 services:
   actual_server:
     image: docker.io/actualbudget/actual-server:latest
-    environment:
     ports:
       - "$SERVER_IP:$ACTUAL_PORT:5006"
     volumes:

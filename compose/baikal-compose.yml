@@ -1,7 +1,6 @@
 version: "2"
 services:
   baikal:
-    environment:
     image: docker.io/ckulka/baikal:nginx
     restart: always
     ports:
